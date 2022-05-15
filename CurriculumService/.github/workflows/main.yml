@@ -1,0 +1,31 @@
+name: Build pipelines
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore SW.CurriculumService.sln
+      - name: Build
+        run: dotnet build SW.CurriculumService.sln --configuration Release --no-restore
+      - name: Test
+        run: dotnet test SW.CurriculumService.Core.Tests.csproj --no-restore --verbosity normal
+        working-directory: SW.CurriculumService.Core.Tests
+
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
