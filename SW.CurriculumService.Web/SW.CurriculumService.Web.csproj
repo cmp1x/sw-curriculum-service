@@ -4,5 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SW.CurriculumService.Repository\SW.CurriculumService.Repository.csproj" />
+  </ItemGroup>
+
 
 </Project>

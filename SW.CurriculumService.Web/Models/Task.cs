@@ -16,6 +16,6 @@
 
         public decimal HoursSpent { get; set; }
 
-        public TrainingDates TrainingDates { get; set; }
+        public TrainingDate TrainingDate { get; set; }
     }
 }
