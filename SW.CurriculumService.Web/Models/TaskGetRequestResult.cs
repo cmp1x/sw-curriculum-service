@@ -2,7 +2,7 @@
 {
     using SW.CurriculumService.Web.Enums;
 
-    public class Task
+    public class TaskGetRequestResult
     {
         public int Id { get; set; }
 
