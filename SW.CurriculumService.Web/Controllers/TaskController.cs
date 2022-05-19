@@ -26,7 +26,19 @@
         [HttpGet]
         public IActionResult Get()
         {
-           
+            var userToken = HttpContext.Request.Headers.FirstOrDefault(h => h.Key == "token").Value;
+            if (string.IsNullOrWhiteSpace(userToken))
+            {
+                return BadRequest();
+            }
+            var client = new HttpClient();
+            var result = client.GetAsync($"https://localhost:7001/token/{userToken}").Result;
+
+            if (result.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                return BadRequest();
+            }
+
             var tasks = taskRepository.Get();
             var mappedTasks = this.mapper.Map<IEnumerable<TaskGetRequestResult>>(tasks);
 
