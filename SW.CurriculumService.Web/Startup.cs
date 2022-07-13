@@ -10,7 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using SW.CurriculumService.Repository;
+using SW.CurriculumService.Web.Controllers;
 
 namespace SW.CurriculumService.Web
 {
@@ -26,6 +28,8 @@ namespace SW.CurriculumService.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen();//need to make oath2 in swagger
+
             services.AddControllers();
 
             services.AddRepositoryServices(this.Configuration.GetConnectionString("DefaultConnection"));
@@ -41,6 +45,14 @@ namespace SW.CurriculumService.Web
                 app.UseDeveloperExceptionPage();
 
                 app.DbInitialize();
+
+                app.UseSwagger();
+
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CurriculumService");
+                    c.RoutePrefix = "swagger";
+                });
             }
 
             app.UseHttpsRedirection();

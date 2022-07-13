@@ -1,14 +1,11 @@
 ﻿namespace SW.CurriculumService.Repository.Models
 {
     using SW.CurriculumService.Repository.Enums;
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Text;
 
-
-    public class TaskDb
+    public class TaskProgressDb
     {
         [Key]
         public int Id { get; set; }
@@ -26,5 +23,7 @@
         public decimal HoursSpent { get; set; }
 
         public virtual ICollection<TrainigDateDb> TrainigDates { get; set; }
+
+        public string UserId { get; set; }
     }
 }

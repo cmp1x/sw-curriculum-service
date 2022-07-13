@@ -13,7 +13,7 @@
         {
         }
 
-        public DbSet<TaskDb> Tasks { get; set; }
+        public DbSet<TaskProgressDb> Tasks { get; set; }
 
         public DbSet<TrainigDateDb> TrainingDates { get; set; }
 

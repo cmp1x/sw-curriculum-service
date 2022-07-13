@@ -8,7 +8,7 @@
     {
         public AutoMapperProfile()
         {
-            CreateMap<TaskDb, TaskGetRequestResult>().ReverseMap();
+            CreateMap<TaskProgressDb, TaskGetRequestResult>().ReverseMap();
         }
     }
 }

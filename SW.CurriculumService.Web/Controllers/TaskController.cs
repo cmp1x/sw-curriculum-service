@@ -1,14 +1,13 @@
 ﻿namespace SW.CurriculumService.Web.Controllers
 {
-    using AutoMapper;
-    using Microsoft.AspNetCore.Mvc;
-    using SW.CurriculumService.Repository.Repositories;
-    using SW.CurriculumService.Web.Models;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Threading.Tasks;
+    using AutoMapper;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+    using SW.CurriculumService.Repository.Repositories;
+    using SW.CurriculumService.Web.Models;
 
     [ApiController]
     [Route("[controller]")]
@@ -27,19 +26,25 @@
         public IActionResult Get()
         {
             var userToken = HttpContext.Request.Headers.FirstOrDefault(h => h.Key == "token").Value;
+
             if (string.IsNullOrWhiteSpace(userToken))
             {
                 return BadRequest();
             }
-            var client = new HttpClient();
-            var result = client.GetAsync($"https://localhost:7001/token/{userToken}").Result;
+
+            var httpClient = new HttpClient();
+
+            var result = httpClient.GetAsync($"https://localhost:7001/token/{userToken}").Result;
 
             if (result.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 return BadRequest();
             }
 
-            var tasks = taskRepository.Get();
+            var currentUser = JsonConvert.DeserializeObject<User>(result.Content.ReadAsStringAsync().Result);
+
+            var tasks = taskRepository.GetForUser(currentUser.UserId);
+
             var mappedTasks = this.mapper.Map<IEnumerable<TaskGetRequestResult>>(tasks);
 
             return Ok(mappedTasks);

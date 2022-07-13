@@ -12,15 +12,21 @@
             this.db = db;
         }
 
-        public IQueryable<TaskDb> Get()
+        public IQueryable<TaskProgressDb> Get()
         {
             return this.db.Tasks;
         }
 
-        public TaskDb GetId(string id)
+        public TaskProgressDb GetId(string taskId)
         {
             return this.db.Tasks.FirstOrDefault(
-                t => t.TaskId == id);
+                t => t.TaskId == taskId);
+        }
+
+        public IQueryable<TaskProgressDb> GetForUser (string userId)
+        {
+            return this.db.Tasks.Where(
+                t => t.UserId == userId);
         }
     }
 }

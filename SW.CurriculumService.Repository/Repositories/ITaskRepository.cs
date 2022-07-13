@@ -5,7 +5,10 @@
 
     public interface ITaskRepository
     {
-        IQueryable<TaskDb> Get();
-        TaskDb GetId(string id);
+        IQueryable<TaskProgressDb> Get();
+
+        TaskProgressDb GetId(string taskId);
+
+        IQueryable<TaskProgressDb> GetForUser(string userId);
     }
 }

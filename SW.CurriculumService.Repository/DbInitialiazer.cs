@@ -8,6 +8,8 @@
 
     public static class DbInitialiazer
     {
+        public const string USERID = "98dc9aff-f865-4862-afe2-679c4f751232";
+
         public static void DbInitialize(this IApplicationBuilder app)
         {
             using (var scope = app.ApplicationServices.CreateScope())
@@ -31,15 +33,17 @@
                     db.SaveChanges();
 
                     // Task
-                    db.Tasks.Add(new TaskDb()
+                    db.Tasks.Add(new TaskProgressDb()
                     {
                         TaskId = "BcC3wjiURyg",
                         Status = StatusState.INPROGRESS,
                         IsCompleted = false,
                         Priority = PriorityColor.RED,
                         HoursSpent = 123,
+                        UserId = USERID
                     });
                     db.SaveChanges();
+
                 }
             }
         }
