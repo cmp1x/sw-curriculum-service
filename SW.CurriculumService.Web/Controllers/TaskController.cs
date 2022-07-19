@@ -25,7 +25,7 @@
         [HttpGet]
         public IActionResult Get()
         {
-            var userToken = HttpContext.Request.Headers.FirstOrDefault(h => h.Key == "token").Value;
+            var userToken = HttpContext.Request.Headers.FirstOrDefault(h => h.Key == "Authorization").Value;
 
             if (string.IsNullOrWhiteSpace(userToken))
             {
@@ -34,7 +34,7 @@
 
             var httpClient = new HttpClient();
 
-            var result = httpClient.GetAsync($"https://localhost:7001/token/{userToken}").Result;
+            var result = httpClient.GetAsync($"https://a5t.ru/token/{userToken}").Result;
 
             if (result.StatusCode != System.Net.HttpStatusCode.OK)
             {

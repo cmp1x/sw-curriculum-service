@@ -8,7 +8,7 @@
 
     public static class DbInitialiazer
     {
-        public const string USERID = "98dc9aff-f865-4862-afe2-679c4f751232";
+        public const string USERID = "3cb50936-bb7c-4114-af07-c4d7a6b0d75f";
 
         public static void DbInitialize(this IApplicationBuilder app)
         {
