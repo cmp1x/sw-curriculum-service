@@ -2,7 +2,7 @@
 {
     using SW.CurriculumService.Web.Enums;
 
-    public class Task
+    public class TaskGetRequestResult
     {
         public int Id { get; set; }
 
@@ -16,6 +16,6 @@
 
         public decimal HoursSpent { get; set; }
 
-        public TrainingDates TrainingDates { get; set; }
+        public TrainingDate TrainingDate { get; set; }
     }
 }
